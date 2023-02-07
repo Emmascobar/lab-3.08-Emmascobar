@@ -1,37 +1,44 @@
 package com.ironhack.lab28.model;
 import jakarta.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Event {
+public class Event {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int date;
+    private Date date;
     private double duration;
     private String location;
     private String title;
 
-    @OneToMany(mappedBy = "event")
-    List<Guest> invitados;
+    @ManyToMany     // muchos invitados pueden ir a muchos eventos.
+    @JoinTable(    // Se crea la tabla que va a relacionar...
+            name = "event_guests",   // eventos con invitados con X nombre.
+            joinColumns = {@JoinColumn(name = "event:id", referencedColumnName = "id")})
+            // Donde se unen las COLUMNAS EVENT ID e ID de la columna de invitados.
+    List<Guest> guests;
 
     public Event() {
     }
 
-    public Event(Long id, int date, double duration, String location, String title, List<Guest> invitados) {
+    public Event(Long id, Date date, double duration, String location, String title, List<Guest> guests) {
         this.id = id;
         this.date = date;
         this.duration = duration;
         this.location = location;
         this.title = title;
-        this.invitados = invitados;
+        this.guests = guests;
     }
 
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -60,10 +67,9 @@ public abstract class Event {
     }
 
     public List<Guest> getInvitados() {
-        return invitados;
+        return guests;
     }
 
-    public void setInvitados(List<Guest> invitados) {
-        this.invitados = invitados;
-    }
+    public void setInvitados(List<Guest> guests) {
+        this.guests = guests;     }
 }

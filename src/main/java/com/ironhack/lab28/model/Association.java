@@ -1,24 +1,42 @@
 package com.ironhack.lab28.model;
 
 import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 
 public class Association {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int number;
+    private Long number;
 
-    @OneToMany(mappedBy = "chapters")
-    private Chapters chapter01;
+    @ManyToOne
+    @JoinColumn(name = "chapters_id")
+    private List<Chapters> chapter;
 
-//    @Embedded
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n01")),
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n02")),
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n03")),
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n04")),
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n05")),
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n06")),
-//    @AttributeOverride( name = "chapter", column = @Column("chapter_n07")),
+    public Association() {
+    }
 
+    public Association(Long number, List<Chapters> chapter) {
+        this.number = number;
+        this.chapter = chapter;
+    }
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
+    }
+
+    public Chapters getChapter() {
+        return (Chapters) chapter;
+    }
+
+    public void setChapter(List<Chapters> chapter) {
+        this.chapter = chapter;
+    }
 }

@@ -13,17 +13,18 @@ public class Chapters {
     private Long id;
     private String name;
     private String district;
-    private String president;
+    @OneToOne
+    @JoinColumn(name = "president_id")
+    private Member president;
+    @OneToMany(mappedBy = "chapter")
+    private List<Member> members;
 
-    private List<Members> members;
-    @OneToMany(mappedBy = "association")
     public Chapters() {
     }
 
-    public Chapters(String name, String district, String president, List<Members> members) {
+    public Chapters(String name, String district, Member president, List<Member> members) {
         this.name = name;
         this.district = district;
-        this.president = president;
         this.members = members;
     }
 
@@ -44,19 +45,12 @@ public class Chapters {
         this.district = district;
     }
 
-    public String getPresident() {
-        return president;
-    }
 
-    public void setPresident(String president) {
-        this.president = president;
-    }
-
-    public List<Members> getMembers() {
+    public List<Member> getMember() {
         return members;
     }
 
-    public void setMembers(List<Members> members) {
-        this.members = members;
+    public void setMember(List<Member> member) {
+        this.members = member;
     }
 }

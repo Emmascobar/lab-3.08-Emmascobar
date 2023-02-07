@@ -3,20 +3,20 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
 public class Speakers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private double presentationDuration;
 
-    @ManyToMany
-    @JoinTable(
-            name = "speaker_conference", joinColumns = {@JoinColumn(name = "speaker_id")}, inverseJoinColumns = {@JoinColumn(name = "conference_id")}
+    @ManyToOne
+    @JoinTable(name = "speaker_conference", joinColumns = {@JoinColumn(name = "speaker_id")}, inverseJoinColumns = {@JoinColumn(name = "conference_id")}
     )
-    private List<Conference> conferenceList;
+
+    private Conference conference;
     public Speakers() {
     }
 

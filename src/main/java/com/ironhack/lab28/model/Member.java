@@ -1,11 +1,12 @@
 package com.ironhack.lab28.model;
 import jakarta.persistence.*;
-import jakarta.persistence.*;
 
 @Entity
-public class Members {
+public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -15,20 +16,20 @@ public class Members {
 
     @ManyToOne
     @JoinColumn(name = "chapters_id")
-    private Chapters chapters;
+    private Chapters chapter;
 
     public Chapters getChapters() {
-        return chapters;
+        return chapter;
     }
 
     public void setChapters(Chapters chapters) {
-        this.chapters = chapters;
+        this.chapter = chapters;
     }
 
-    public Members() {
+    public Member() {
     }
 
-    public Members(String name, MemberStatus memberStatus, String renewalDate) {
+    public Member(String name, MemberStatus memberStatus, String renewalDate) {
         this.name = name;
         this.memberStatus = memberStatus;
         this.renewalDate = renewalDate;

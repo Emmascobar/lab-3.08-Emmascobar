@@ -1,14 +1,21 @@
 package com.ironhack.lab28.model;
 import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
 public class Guest {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     private String name;
 
     @Enumerated(EnumType.STRING)
     private GuestStatus status;
 
-    @ManyToOne
-    private Event event;
+    @ManyToMany(mappedBy = "guests")
+    private List<Event> event;
 
     public Guest() {
     }
