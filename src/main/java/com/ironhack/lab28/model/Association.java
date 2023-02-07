@@ -9,7 +9,7 @@ public class Association {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int number;
 
-    @OneToMany
+    @OneToMany(mappedBy = "chapters")
     private Chapters chapter01;
 
 //    @Embedded

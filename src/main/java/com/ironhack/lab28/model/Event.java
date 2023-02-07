@@ -3,8 +3,10 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Event {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Event {
 
+    private Long id;
     private int date;
     private double duration;
     private String location;
@@ -16,7 +18,8 @@ public class Event {
     public Event() {
     }
 
-    public Event(int date, double duration, String location, String title, List<Guest> invitados) {
+    public Event(Long id, int date, double duration, String location, String title, List<Guest> invitados) {
+        this.id = id;
         this.date = date;
         this.duration = duration;
         this.location = location;

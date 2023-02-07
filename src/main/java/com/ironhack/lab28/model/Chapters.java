@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 
-@Embeddable
 public class Chapters {
 
     @Id
@@ -16,10 +15,8 @@ public class Chapters {
     private String district;
     private String president;
 
-    @OneToMany(mappedBy = "chapter")
-
     private List<Members> members;
-
+    @OneToMany(mappedBy = "association")
     public Chapters() {
     }
 
